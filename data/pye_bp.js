@@ -1,0 +1,6 @@
+questions = [
+    {"id": 1001, "unit": 1, "type": "V/F", "instruction": "A partir del empleo de *modelos matemáticos* la *estadística* busca obtener *conclusiones de los datos resultantes de la investigación empírica*, ofreciendo metodologías para *recopilar, organizar e interpretar* estos datos.\n", "answer": "V"},
+    {"id": 1002, "unit": 1, "type": "V/F", "instruction": "La *estadística* enseña cómo *realizar juicios inteligentes y tomar decisiones informadas en presencia de certidumbre*.\n", "answer": "F"},
+    {"id": 1003, "unit": 1, "type": "V/F", "instruction": "Sin *incertidumbre y variación*, habría poca necesidad de *métodos estadísticos*.\n", "answer": "V"},
+    {"id": 1004, "unit": 1, "type": "V/F", "instruction": "Si cada *miembro* de una *población* dada tuviese, para las mismas condiciones el mismo valor para una dada *característica de interés*, entonces una sola *observación* bastaría para revelar toda la información deseada respecto de la *población*.\n", "answer": "V"},
+]

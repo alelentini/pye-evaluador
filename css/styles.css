@@ -1,0 +1,43 @@
+.red {
+    color:red;
+}
+
+.green {
+    color:green;
+}
+
+.gold {
+    color:goldenrod;
+}
+
+.text-80 {
+    font-size: 80%;
+}
+
+.text-90 {
+    font-size: 90%;
+}
+
+.text-120 {
+    font-size: 120%;
+}
+
+.caption {
+    font-style: italic;
+    color:grey;
+}
+
+.text-code {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: darkred;
+}
+
+.term {
+    color: blue;
+}
+
+.toc-selected {
+    font-weight: bold;
+    background-color: lightsteelblue;
+}

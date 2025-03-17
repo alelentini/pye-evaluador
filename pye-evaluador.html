@@ -1,0 +1,133 @@
+<!-- <!DOCTYPE html> -->
+
+<html lang='en'>
+
+	<head>
+		<meta charset='utf-8'>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+		<meta name='viewport' content='width=device-width, initial-scale=1'>
+		<title id='head-title'>Evaluador Economía</title>
+		<!-- Bootstrap CSS -->
+		<link rel='stylesheet' type='text/css' href='libraries/bootstrap-5.2.3/css/bootstrap.min.css'>
+		<!-- Font Awesome 4 -->
+		<link rel='stylesheet' type='text/css' href='libraries/font-awesome-4.7.0/css/font-awesome.min.css'>
+		<!-- Custom CSS -->
+		<link rel='stylesheet' type='text/css' href='css/styles.css'>	
+	</head>
+
+	<body onload='main()'>
+		<!-- Page content -->
+		<div class='container-fluid'>
+			<!-- Title, filter bar and tabs buttons -->
+			<div id='title-div' class='sticky-top'>
+				<!-- Title -->
+				<div class='row bg-secondary text-white pt-1 pb-1'>
+					<div class='col-8'>
+						<h5 style='margin-left:15px' id='page-title'></h5>
+					</div>
+				</div>
+				<!-- Qestions filters -->
+				<div id='preguntas-filtros' class='row pt-1 pb-1 d-none' style='background-color: lightgrey;'>
+					<div class='btn-group' role='group'>
+						<!-- Filter text -->
+						<div class='btn-group'><span id='filter-text' class='my-auto' style='font-size:90%'></span></div>
+						<!-- Units -->
+						<div class='btn-group' role='group'>
+							<button id='btn-units-label' type='button btn-sm' class='btn dropdown-toggle' data-bs-toggle='dropdown' style='font-size:90%'>
+								Unidades
+							</button>
+							<ul id='btn-units' class='dropdown-menu' style='font-size:90%'>
+								<li><a class='dropdown-item' href='#'>1 - Estadística descriptiva</a></li>
+							</ul>
+						</div>
+						<!-- Type -->
+						<div class='btn-group' role='group'>
+							<button id='btn-type-label' type='button btn-sm' class='btn dropdown-toggle' data-bs-toggle='dropdown' style='font-size:90%'>
+								Tipo
+							</button>
+							<ul id='btn-type' class='dropdown-menu' style='font-size:90%'>
+								<li><a class='dropdown-item' href='#'>Verdader/Falso</a></li>
+								<li><a class='dropdown-item' href='#'>Opción múltiple</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- Exam information -->
+				<div id='examenes-info' class='row pt-1 pb-1 d-none' style='background-color: lightgrey;'></div>
+			</div>
+			<!-- Tabs contents-->
+			<div id='tab-contents' class=''>
+				<!-- Default -->
+				<div id='default' class='row mt-2 d-none'>
+					<p>No se ha seleccionado una <em>vista</em>: preguntas o exámenes</p>
+				</div>
+				<!-- Questions -->
+				<div id='preguntas-contenido' class='row mt-2 d-none'></div>
+				<!-- Exams -->
+				<div id='examenes' class='row mt-2 d-none'>
+					<div class='nav nav-tabs' id='nav-tab-examenes' role='tablist'>
+						<!-- <button class='nav-link active' id='nav-tab-examenes-info' data-bs-toggle='tab' data-bs-target='#nav-tab-contents-examenes-info' type='button' role='tab'>General</button> -->
+						<button 
+							class='nav-link active active' 
+							id='nav-tab-examenes-preguntas' 
+							data-bs-toggle='tab' 
+							data-bs-target='#nav-tab-contents-examenes-preguntas' 
+							type='button' 
+							role='tab'>Preguntas</button>
+						<button 
+							class='nav-link' 
+							id='nav-tab-examenes-entrega' 
+							data-bs-toggle='tab' 
+							data-bs-target='#nav-tab-contents-examenes-entrega' 
+							type='button' 
+							role='tab'						
+							onclick='updateDeliveryData()'>Entrega</button>
+					</div>
+					<div class='tab-content' id='nav-tab-contents-examenes'>
+						<!-- General -->
+						<!-- <div id='nav-tab-contents-examenes-info' class='tab-pane fade show active mt-4' role='tabpanel' tabindex='0'></div> -->
+						<!-- Questions -->
+						<div id='nav-tab-contents-examenes-preguntas' class='tab-pane fade show active mt-4' role='tabpanel' tabindex='1'></div>
+						<!-- Delivery -->
+						<div id='nav-tab-contents-examenes-entrega' class='tab-pane mt-4' role='tabpanel' tabindex='2'>
+							<p>Para realizar la entrega del exámen, proceder de la siguiente forma:</p>
+							<p class='mt-5'>1. Indicar el legajo.</p>
+							<p style='margin-left:5px'>Tener presente que únicamente se permiten dígitos numéricos (sin guión) y además no se debe incluir el '15' al inicio.</p>
+							<input 
+								id='legajo-input' 
+								class='form-control form-control-sm' 
+								type='text' 
+								style='margin-left:5px;width:60px' 
+								placeholder='12345'
+								oninput='updateDeliveryId()'>
+							<p class='mt-5'>2. Revisar las <em>datos de entrega</em>.</p>
+							<div id='datos-entrega' style='color:darkblue'></div>
+							<p class='mt-5'>4. Resgistrar los <em>datos de entrega</em>:</p>
+							<ol>
+								<li>Ingresar al formulario de Google <a href='#' target='_blank'>UTN-FRH - PyE - Respuestas exámen</a>.</li>
+								<li class='mt-2'>Pegar los <em>datos de entrega</em> en X (los datos ya se encuentran copiados en el portapapeles).</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+		<!------------------------------------>
+		<!-- JavaScript external references -->
+		<!------------------------------------>
+		<!-- Bootstrap -->
+		<script src='libraries/bootstrap-5.2.3/js/bootstrap.bundle.min.js'></script>
+		<!-- Marked.js -->
+		<script src='libraries/marked-11.1.1/marked.min.js'></script>
+		<!-- Mathjax -->
+		<script>MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}};</script>
+		<script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+		<!-- Configuration objects -->
+		<script src='config/config.js'></script>
+		<!-- Data objects -->
+		<script src='data/pye_bp.js'></script>
+		<script src='data/pye_be.js'></script>
+		<!-- Logic -->
+		<script src='js/logic.js'></script>	
+	</body>
+</html>
