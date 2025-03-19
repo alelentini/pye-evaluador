@@ -56,3 +56,107 @@ Si cada *miembro* de una *población* dada tuviese, para las mismas condiciones 
 
 <br>
 
+## 1005
+
+---
+
+*Tipo*: OM
+
+*Consigna*:
+
+¿Cuál de las siguientes *areas de aplicación de la estadística* tiene como propósito fundamental la *definición y planeación de la experimentación que recolectará los datos*.
+
+1. Estadística inferencial.
+2. Estadística descriptiva.
+3. Diseño de investigaciones.
+
+*Respuesta*: 1
+
+<br>
+
+## 1006
+
+---
+
+*Tipo*: OM
+
+*Consigna*:
+
+¿Cuál de las siguientes *areas de aplicación de la estadística* tiene como propósito fundamental la *organización y análisis inicial de los datos recogidos*.
+
+1. Diseño de investigaciones.
+2. Estadística descriptiva.
+3. Estadística inferencial.
+
+*Respuesta*: 2
+
+<br>
+
+## 1007
+
+---
+
+*Tipo*: OM
+
+*Consigna*:
+
+¿Cuál de las siguientes *areas de aplicación de la estadística* tiene como propósito fundamental la *extracción de conclusiones válidas y toma de decisiones razonables a partir de los datos*.
+
+
+1. Estadística descriptiva.
+2. Diseño de investigaciones.
+3. Estadística inferencial.
+
+*Respuesta*: 3
+
+<br>
+
+## 1008
+
+---
+
+*Tipo*: CV
+
+*Consigna*:
+
+Indique a qué *areas de aplicación de la estadística* corresponden los elementos 1 a 3 del siguiente diagrama.
+
+<br>
+
+![1008](/images/1008.png)
+
+<br>
+
+1.  
+2. 
+3. 
+
+*Respuesta*: Diseño de investigaciones, Estadística descriptiva, Estadística inferencial
+
+<br>
+
+## 1009
+
+---
+
+*Tipo*: CV
+
+*Consigna*:
+
+Complete el nombre de los elementos 1 a 5 del siguiente diagrama correspondiente al *proceso experimental y el método estadístico*.
+
+<br>
+
+![1009](/images/1009.png)
+
+<br>
+
+1.  
+2. 
+3. 
+4. 
+5. 
+
+*Respuesta*: Población, Muestra, Datos, Información muestral, Conocimentos
+
+<br>
