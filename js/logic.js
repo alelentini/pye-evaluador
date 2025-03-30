@@ -57,9 +57,6 @@ function updateUI() {
             document.getElementById('default').classList.remove('d-none');
             break;
     }
-    
-    // Renders Latex contents
-    MathJax.typeset();
 }
 
 
@@ -77,6 +74,9 @@ function updateQuestionsView() {
     document.getElementById('examenes-info').classList.add('d-none');
     document.getElementById('preguntas-contenido').classList.remove('d-none');
     document.getElementById('preguntas-filtros').classList.remove('d-none');
+
+    // Renders Latex contents
+    MathJax.typeset();
 }
 
 
@@ -350,11 +350,16 @@ function loadExamQuestions() {
 
 // Updates UI: exams view > questions tab
 function updateQuestionsTab() {
+    
     let examQuestions = [];
+    
     exams[examIx].questions.forEach(examQuestionId => {
         examQuestions.push(questions.filter(question => question.id === examQuestionId)[0]);
     });
     document.getElementById('nav-tab-contents-examenes-preguntas').innerHTML = questionsCardsHtml(examQuestions, false, true);
+
+    // Renders Latex contents
+    MathJax.typeset();
 }
 
 
