@@ -272,58 +272,78 @@ function toggleAnswer(questionId) {
 // Updates UI: exams view
 function updateExamsView() {
 
-    // Sets exam index
-    examIx = 0;
-    let iterate = true;
-    while (iterate) {
-        if (exams[examIx].id === examId) {
-            iterate = false;
-        } else {
-            examIx++;
-            if (examIx === exams.length) {
+    // Updates page title
+    document.getElementById('page-title').innerHTML = `${PAGE_TITLE} - Exámenes `;
+
+    // Shows questions view
+    document.getElementById('preguntas-contenido').classList.add('d-none');
+    document.getElementById('preguntas-filtros').classList.add('d-none');
+    document.getElementById('examenes').classList.remove('d-none');
+    document.getElementById('examenes-info').classList.remove('d-none');
+}
+
+
+// Loads exam questions
+function loadExamQuestions() {
+
+    // Sets exam ID
+    examId = document.getElementById('examen-id-input').value;
+    
+    if (examId === '') {
+        // Updates error message
+        document.getElementById('examen-id-input-error-info').innerHTML = '⚠️ Inidicar un código de examen válido.';
+    } else {
+        // Sets exam index
+        examIx = 0;
+        let iterate = true;
+        while (iterate) {
+            if (exams[examIx].id === examId) {
                 iterate = false;
-                examIx = undefined;
+            } else {
+                examIx++;
+                if (examIx === exams.length) {
+                    iterate = false;
+                    examIx = undefined;
+                }
             }
-        }
-    }
+        }        
 
-    if (examIx !== undefined) {
-        // Updates page title
-        document.getElementById('page-title').innerHTML = `${PAGE_TITLE} - Exámenes `;
-        document.getElementById('examenes-info').innerHTML = `<h6 style="margin-left:15px">Examen ${examId} - ${exams[examIx].name}</h6>`;
-
-        // Populates answers list
-        let question = undefined;
-        let answers = [];
-        const regex = new RegExp('^[1-9]\.');
-        exams[examIx].questions.forEach(questionId => {
-            question = questions.filter(question => question.id === questionId)[0];
-            switch (question.type) {
-                case 'CV':
-                    answers = [];
-                    question.instruction.split('\n').forEach(line => {
-                        if (regex.test(line)) {
-                            answers.push('');
-                        }
-                    });
-                    exams[examIx].answers.push(answers.join('; '));
-                    break;
-            
-                default:
-                    exams[examIx].answers.push('');
-                    break;
-            }
-        });
+        // Load exm questions
+        if (examIx !== undefined) {
         
+            // Updates page title
+            document.getElementById('examenes-info').innerHTML = `<h6 style="margin-left:15px">Examen ${examId} - ${exams[examIx].name}</h6>`;
 
-        // Updates question tab
-        updateQuestionsTab();
+            // Populates answers list
+            let question = undefined;
+            let answers = [];
+            const regex = new RegExp('^[1-9]\.');
+            exams[examIx].questions.forEach(questionId => {
+                question = questions.filter(question => question.id === questionId)[0];
+                switch (question.type) {
+                    case 'CV':
+                        answers = [];
+                        question.instruction.split('\n').forEach(line => {
+                            if (regex.test(line)) {
+                                answers.push('');
+                            }
+                        });
+                        exams[examIx].answers.push(answers.join(';'));
+                        break;
+                
+                    default:
+                        exams[examIx].answers.push('');
+                        break;
+                }
+            });
+            
 
-        // Shows questions view
-        document.getElementById('preguntas-contenido').classList.add('d-none');
-        document.getElementById('preguntas-filtros').classList.add('d-none');
-        document.getElementById('examenes').classList.remove('d-none');
-        document.getElementById('examenes-info').classList.remove('d-none');
+            // Updates question tab
+            updateQuestionsTab();
+        } else {
+            // Updates error message
+            document.getElementById('examen-id-input-error-info').innerHTML = '⚠️ No existe un exámen con el código indicado.';
+        }
     }
 }
 
@@ -352,17 +372,17 @@ function updateAnswers(questionIx, questionType, answerIx, answerInputId) {
             if (currentAnswer === '') {
                 exams[examIx].answers[questionIx] = answerIx;
             } else {
-                currentAnswers = currentAnswer.split('; ');
+                currentAnswers = currentAnswer.split(';');
                 currentAnswers.push(answerIx)
                 currentAnswers.sort();
-                exams[examIx].answers[questionIx] = currentAnswers.join('; ');
+                exams[examIx].answers[questionIx] = currentAnswers.join(';');
             }
             break;
 
         case 'CV':
-            currentAnswers = currentAnswer.split('; ');
+            currentAnswers = currentAnswer.split(';');
             currentAnswers[answerIx - 1] = document.getElementById(answerInputId).value;
-            exams[examIx].answers[questionIx] = currentAnswers.join('; ');
+            exams[examIx].answers[questionIx] = currentAnswers.join(';');
             break;
             
         default:
@@ -374,27 +394,31 @@ function updateAnswers(questionIx, questionType, answerIx, answerInputId) {
 // Updates delivery data
 function updateDeliveryData() {
 
+    let answers = [];
     let endTIme = new Date();
 
     // Updates delivery data > delivery tab
-    let html = `
-        <p>UTN-FRH - Economía | Examen ${examId} - ${exams[examIx].name}</p>
-        <p>Fecha: ${startTime.toISOString().substring(0, 10)}</p>
-        <p>Inicio: ${startTime.toTimeString().substring(0, 8)}</p>
-        <p>Fin: ${endTIme.toTimeString().substring(0, 8)}</p>
-        <p id='datos-entrega-legajo'>Legajo: </p>
-        <p>Respuestas: ${exams[examIx].answers.join(', ')}</p>
-    `;
+    let html = `UTN-FRH - Probabilidad y estadística<br>
+Examen: ${examId}<br>
+Fecha: ${startTime.toISOString().substring(0, 10)}<br>
+Inicio: ${startTime.toTimeString().substring(0, 8)}<br>
+Fin: ${endTIme.toTimeString().substring(0, 8)}<br>
+Respuestas:<br>\n`;
+    for (let ix = 0; ix < exams[examIx].questions.length; ix++) {
+        answers = exams[examIx].answers[ix].split(';');
+        if (answers.length === 1) {
+            html += `${exams[examIx].questions[ix]}: ${answers[0] == "" ? "SR" : answers[0]}<br>\n`;
+        } else {
+            answers.forEach((answer, answerIx) => {
+                html += `${exams[examIx].questions[ix]}.${answerIx + 1}: ${answer == "" ? "SR" : answer}<br>\n`;
+            });
+        }
+        
+    }
     document.getElementById('datos-entrega').innerHTML = html;
 
     // Updates delivery data variable and copy it to the clipboard
-    deliveryData = `UTN-FRH - Economía | Examen ${examId} - ${exams[examIx].name}
-Fecha: ${startTime.toISOString().substring(0, 10)}
-Inicio: ${startTime.toTimeString().substring(0, 8)}
-Fin: ${endTIme.toTimeString().substring(0, 8)}
-Legajo: 
-Respuestas: ${exams[examIx].answers.join(', ')}`;
-    navigator.clipboard.writeText(deliveryData);
+    navigator.clipboard.writeText(html.replaceAll('<br>', ''));
 }
 
 

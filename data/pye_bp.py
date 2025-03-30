@@ -41,7 +41,8 @@ def process_questions_bank(bank_ix):
             'unit': questions_banks[bank_ix]['unit'], 
             'type': '', 
             'instruction': '', 
-            'answer': ''
+            'answer': '',
+            'topics': []
         }
         line_ix = question_indexes[question_indexes_ix] + 4
         if question_indexes_ix < len(question_indexes) - 1:
@@ -49,26 +50,34 @@ def process_questions_bank(bank_ix):
         else:
             line_ix_end = len(lines) - 1
         while(line_ix < line_ix_end):
+            # Type
             if re.search(r'^\*Tipo\*: ', lines[line_ix]):
                 question['type'] = re.sub('\r?\n', '', lines[line_ix][8:])
+            # Instruction
             elif re.search(r'^\*Consigna\*:$', lines[line_ix]):
                 line_ix += 2
                 while(line_ix < line_ix_end and not re.search(r'^\*Respuesta\*: ', lines[line_ix])):
                     if lines[line_ix] != '\n':
                         question['instruction'] += re.sub('\r?\n', r'\\n', lines[line_ix]).replace('/images/', r'images/').replace('\\', '\\\\').replace('\\\\n', '\\n')
                     line_ix += 1
-            if re.search(r'^\*Respuesta\*: ', lines[line_ix]):
+                line_ix -= 1
+            # Answer
+            elif re.search(r'^\*Respuesta\*: ', lines[line_ix]):
                 question['answer'] = re.sub('\r?\n', '', lines[line_ix][13:])
+            # Answer
+            elif re.search(r'^\*Temas\*: ', lines[line_ix]):
+                question['topics'] = re.sub('\r?\n', '', lines[line_ix][9:]).split(', ')
             line_ix += 1
         questions.append(question)
 
 
+# Exporta banco de preguntas
 def export_questions():
 
     with open(os.path.join(DATA_PATH, 'pye_bp.js'), mode='w', encoding='utf-8') as f:
         f.write('questions = [\n')
         for question in questions:
-            f.write(' ' * 4 + f'{{"id": {question["id"]}, "unit": {question["unit"]}, "type": "{question["type"]}", "instruction": "{question["instruction"]}", "answer": "{question["answer"]}"}},\n')
+            f.write(' ' * 4 + f'{{"id": {question["id"]}, "unit": {question["unit"]}, "type": "{question["type"]}", "instruction": "{question["instruction"]}", "answer": "{question["answer"]}", "topics": {question["topics"]}}},\n')
         f.write(']')
         #f.write(f'questions = {json.dumps(questions, indent=4)}')
         #json.dump(questions_banks, f, ensure_ascii=False, indent=4)

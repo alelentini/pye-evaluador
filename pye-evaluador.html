@@ -65,46 +65,63 @@
 				<div id='preguntas-contenido' class='row mt-2 d-none'></div>
 				<!-- Exams -->
 				<div id='examenes' class='row mt-2 d-none'>
+					<!-- Exam ID row -->
+					<div class='row g-4 align-items-center mb-4'>
+						<div class='col-auto'>
+							<label for='examen-id-input' class='col-form-label'>Examen</label>
+						</div>
+						<div class="col-auto">
+						  	<input id='examen-id-input' type='text' class='form-control' placeholder='código de examen'>
+						</div>
+						<div class='col-auto'>
+							<button type='submit' class='btn btn-secondary btn-sm' title='Cargar preguntas' onclick='loadExamQuestions()'>Cargar</button>
+					  </div>
+					  <div class='col-auto'>
+						<span id='examen-id-input-error-info' style='color:red;font-weight:bold'></span>
+				  </div>
+					</div>
+					<!-- Exams tabs buttons -->
 					<div class='nav nav-tabs' id='nav-tab-examenes' role='tablist'>
-						<!-- <button class='nav-link active' id='nav-tab-examenes-info' data-bs-toggle='tab' data-bs-target='#nav-tab-contents-examenes-info' type='button' role='tab'>General</button> -->
+						<!-- Questions -->
 						<button 
-							class='nav-link active active' 
+							class='nav-link active' 
 							id='nav-tab-examenes-preguntas' 
 							data-bs-toggle='tab' 
 							data-bs-target='#nav-tab-contents-examenes-preguntas' 
 							type='button' 
-							role='tab'>Preguntas</button>
+							role='tab'>
+								Preguntas
+						</button>
+						<!-- Delivery -->
 						<button 
 							class='nav-link' 
 							id='nav-tab-examenes-entrega' 
 							data-bs-toggle='tab' 
 							data-bs-target='#nav-tab-contents-examenes-entrega' 
 							type='button' 
-							role='tab'						
-							onclick='updateDeliveryData()'>Entrega</button>
+							role='tab'>
+								Entrega
+						</button>
 					</div>
+					<!-- Exams tabs contens -->
 					<div class='tab-content' id='nav-tab-contents-examenes'>
-						<!-- General -->
-						<!-- <div id='nav-tab-contents-examenes-info' class='tab-pane fade show active mt-4' role='tabpanel' tabindex='0'></div> -->
 						<!-- Questions -->
-						<div id='nav-tab-contents-examenes-preguntas' class='tab-pane fade show active mt-4' role='tabpanel' tabindex='1'></div>
+						<div id='nav-tab-contents-examenes-preguntas' class='tab-pane fade active show mt-4' role='tabpanel' tabindex='1'></div>
 						<!-- Delivery -->
 						<div id='nav-tab-contents-examenes-entrega' class='tab-pane mt-4' role='tabpanel' tabindex='2'>
 							<p>Para realizar la entrega del exámen, proceder de la siguiente forma:</p>
-							<p class='mt-5'>1. Indicar el legajo.</p>
-							<p style='margin-left:5px'>Tener presente que únicamente se permiten dígitos numéricos (sin guión) y además no se debe incluir el '15' al inicio.</p>
-							<input 
-								id='legajo-input' 
-								class='form-control form-control-sm' 
-								type='text' 
-								style='margin-left:5px;width:60px' 
-								placeholder='12345'
-								oninput='updateDeliveryId()'>
-							<p class='mt-5'>2. Revisar las <em>datos de entrega</em>.</p>
-							<div id='datos-entrega' style='color:darkblue'></div>
-							<p class='mt-5'>4. Resgistrar los <em>datos de entrega</em>:</p>
+							<div class='row g-2 align-items-center mt-2'>
+								<div class='col-auto'>
+									<label for='examen-id-input' class='col-form-label'>1. Copiar los <em>datos de entrega</em>:</label>
+								</div>
+								<div class='col-auto'>
+									<button type='submit' class='btn btn-secondary btn-sm' title='Copiar datos entrega' onclick='updateDeliveryData()'>Copiar</button>
+								</div>
+							</div>
+							<div id='datos-entrega' class='mt-4' style='color:darkblue'></div>
+							<p class='mt-4'>2. Resgistrar los <em>datos de entrega</em>:</p>
 							<ol>
-								<li>Ingresar al formulario de Google <a href='#' target='_blank'>UTN-FRH - PyE - Respuestas exámen</a>.</li>
+								<li>Ingresar al formulario de Google <a href='https://docs.google.com/forms/d/e/1FAIpQLSfVG6L1w1QHTL-nlyok_pVQgCfMB7sl4W5NgsSJN8zxrxciIA/viewform?usp=header' target='_blank'>UTN-FRH - PyE - 3°1° - Respuestas exámenes</a>.</li>
 								<li class='mt-2'>Pegar los <em>datos de entrega</em> en X (los datos ya se encuentran copiados en el portapapeles).</li>
 							</ol>
 						</div>

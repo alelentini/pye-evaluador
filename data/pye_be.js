@@ -3,5 +3,5 @@
 /**************************************************************************************************************************************************/
 
 exams = [
-    //{id: 'P00000000', type: 'Parcial', name: 'Simulación 2° Parcial', date: '', questions: [5006, 4001, 4002, 4094, 5001, 5002, 6001, 6002, ], questionsPoints: [2, 0.0222, 0.0222, 0.0222, 0.0222, 0.0222, 0.0222, 0.0222, ], answers: []}
+    {id: 'E00', type: 'Cuestionario de evaluación contínua', name: 'Simulación cuestionario de evaluación contínua', date: '09/94/2025', questions: [1002, 1006, 1008, 1013, 1010], questionsPoints: [2, 2, 2, 2, 2], answers: []}
 ]
